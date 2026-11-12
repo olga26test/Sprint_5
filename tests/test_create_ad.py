@@ -7,7 +7,7 @@ from locators import RegPage, CreateAd
 
 
 def test_create_ad_unauth_user(driver):
-    driver.get("https://qa-desk.education-services.ru/")
+    driver.get(RegPage.url_main_page)
 
     # пытаемся создать объявление неавторизованным пользователем
     driver.find_element(By.XPATH, CreateAd.button_place_ad).click()
@@ -18,7 +18,7 @@ def test_create_ad_unauth_user(driver):
 
 
 def test_create_ad_auth_user(driver):
-    driver.get("https://qa-desk.education-services.ru/")
+    driver.get(RegPage.url_main_page)
 
     # создаем аккаунт
     driver.find_element(By.XPATH, RegPage.button_enter_and_reg).click()
@@ -43,7 +43,7 @@ def test_create_ad_auth_user(driver):
     driver.find_element(By.XPATH, CreateAd.description).send_keys("Продаю книгу «Трудно быть богом» в хорошем состоянии")
     driver.find_element(By.XPATH, CreateAd.price).send_keys(650)
     driver.find_element(By.XPATH, CreateAd.button_publish).click()
-    WebDriverWait(driver, 15).until(EC.url_to_be("https://qa-desk.education-services.ru/"))
+    WebDriverWait(driver, 15).until(EC.url_to_be(RegPage.url_main_page))
 
     # переходим в профиль пользователя
     driver.find_element(By.CSS_SELECTOR, RegPage.button_profile).click()

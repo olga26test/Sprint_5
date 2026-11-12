@@ -7,7 +7,7 @@ from locators import RegPage
 
 
 def test_login(driver):
-    driver.get("https://qa-desk.education-services.ru/")
+    driver.get(RegPage.url_main_page)
     
     # создаем аккаунт
     driver.find_element(By.XPATH, RegPage.button_enter_and_reg).click()
@@ -37,7 +37,7 @@ def test_login(driver):
     assert (driver.find_element(By.CSS_SELECTOR, RegPage.user_name).text == "User.") and (len(driver.find_elements(By.CSS_SELECTOR, RegPage.button_profile)) == 1)
 
 def test_logout(driver):
-    driver.get("https://qa-desk.education-services.ru/")
+    driver.get(RegPage.url_main_page)
 
     # создаем аккаунт
     driver.find_element(By.XPATH, RegPage.button_enter_and_reg).click()

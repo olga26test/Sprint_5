@@ -1,7 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+
 class RegPage: 
+    url_main_page = "https://qa-desk.education-services.ru/"
     button_enter_and_reg = ".//button[text()='Вход и регистрация']"
     button_no_account = ".//button[text()='Нет аккаунта']"
     input_email = ".//input[@placeholder='Введите Email']"

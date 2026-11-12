@@ -7,7 +7,7 @@ from locators import RegPage
 
 
 def test_registration(driver):
-    driver.get("https://qa-desk.education-services.ru/")
+    driver.get(RegPage.url_main_page)
 
     # создаем аккаунт
     driver.find_element(By.XPATH, RegPage.button_enter_and_reg).click()
@@ -26,7 +26,7 @@ def test_registration(driver):
 
 
 def test_registration_with_invalid_mask_email(driver):
-    driver.get("https://qa-desk.education-services.ru/")
+    driver.get(RegPage.url_main_page)
 
     # пытаемся зарегистрироваться с невалидным email
     driver.find_element(By.XPATH, RegPage.button_enter_and_reg).click()
@@ -50,7 +50,7 @@ def test_registration_with_invalid_mask_email(driver):
 
 
 def test_registration_existing_user(driver):
-    driver.get("https://qa-desk.education-services.ru/")
+    driver.get(RegPage.url_main_page)
 
     # создаем аккаунт
     driver.find_element(By.XPATH, RegPage.button_enter_and_reg).click()
