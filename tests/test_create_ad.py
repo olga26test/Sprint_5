@@ -10,48 +10,48 @@ def test_create_ad_unauth_user(driver):
     driver.get(RegPage.url_main_page)
 
     # пытаемся создать объявление неавторизованным пользователем
-    driver.find_element(*CreateAd.button_place_ad).click()
-    WebDriverWait(driver, 3).until(EC.visibility_of_element_located((CreateAd.popup_signin)))
+    driver.find_element(*CreateAd.BUTTON_PLACE_AD).click()
+    WebDriverWait(driver, 3).until(EC.visibility_of_element_located((CreateAd.POPUP_SIGNIN)))
 
     # проверяем, что появляется модалка с заголовком «Чтобы разместить объявление, авторизуйтесь»
-    assert len(driver.find_elements(*CreateAd.popup_signin)) == 1 and driver.find_element(*CreateAd.popup_signin).text == "Чтобы разместить объявление, авторизуйтесь"
+    assert len(driver.find_elements(*CreateAd.POPUP_SIGNIN)) == 1 and driver.find_element(*CreateAd.POPUP_SIGNIN).text == "Чтобы разместить объявление, авторизуйтесь"
 
 
 def test_create_ad_auth_user(driver):
     driver.get(RegPage.url_main_page)
 
     # создаем аккаунт
-    driver.find_element(*RegPage.button_enter_and_reg).click()
-    WebDriverWait(driver, 3).until(EC.visibility_of_element_located((RegPage.button_no_account)))
-    driver.find_element(*RegPage.button_no_account).click()
-    WebDriverWait(driver, 3).until(EC.visibility_of_element_located((RegPage.input_email)))
+    driver.find_element(*RegPage.BUTTON_ENTER_AND_REG).click()
+    WebDriverWait(driver, 3).until(EC.visibility_of_element_located((RegPage.BUTTON_NO_ACCOUNT)))
+    driver.find_element(*RegPage.BUTTON_NO_ACCOUNT).click()
+    WebDriverWait(driver, 3).until(EC.visibility_of_element_located((RegPage.INPUT_EMAIL)))
     email_random = f"olya{r.randint(10000, 999999)}@gmail.com"
-    driver.find_element(*RegPage.input_email).send_keys(email_random)
-    driver.find_element(*RegPage.input_password).send_keys("12345")
-    driver.find_element(*RegPage.input_repeat_password).send_keys("12345")
-    driver.find_element(*RegPage.button_create_account).click()
-    WebDriverWait(driver, 30).until(EC.visibility_of_element_located((RegPage.user_name)))
+    driver.find_element(*RegPage.INPUT_EMAIL).send_keys(email_random)
+    driver.find_element(*RegPage.INPUT_PASSWORD).send_keys("12345")
+    driver.find_element(*RegPage.INPUT_REPEAT_PASSWORD).send_keys("12345")
+    driver.find_element(*RegPage.BUTTON_CREATE_ACCOUNT).click()
+    WebDriverWait(driver, 30).until(EC.visibility_of_element_located((RegPage.USER_NAME)))
     
     # размещаем объявление
-    driver.find_element(*CreateAd.button_place_ad).click()
-    driver.find_element(*CreateAd.name).send_keys("Трудно быть богом")
-    driver.find_element(*CreateAd.button_list_of_category).click()
-    driver.find_element(*CreateAd.category_books).click()
-    driver.find_element(*CreateAd.button_list_of_city).click()
-    driver.find_element(*CreateAd.city_ekb).click()
-    driver.find_element(*CreateAd.second_radio_button).click()
-    driver.find_element(*CreateAd.description).send_keys("Продаю книгу «Трудно быть богом» в хорошем состоянии")
-    driver.find_element(*CreateAd.price).send_keys(650)
-    driver.find_element(*CreateAd.button_publish).click()
+    driver.find_element(*CreateAd.BUTTON_PLACE_AD).click()
+    driver.find_element(*CreateAd.NAME).send_keys("Трудно быть богом")
+    driver.find_element(*CreateAd.BUTTON_LIST_OF_CATEGORY).click()
+    driver.find_element(*CreateAd.CATEGORY_BOOKS).click()
+    driver.find_element(*CreateAd.BUTTON_LIST_OF_CITY).click()
+    driver.find_element(*CreateAd.CITY_EKB).click()
+    driver.find_element(*CreateAd.SECOND_RADIO_BUTTON).click()
+    driver.find_element(*CreateAd.DESCRIPTION).send_keys("Продаю книгу «Трудно быть богом» в хорошем состоянии")
+    driver.find_element(*CreateAd.PRICE).send_keys(650)
+    driver.find_element(*CreateAd.BUTTON_PUBLISH).click()
     WebDriverWait(driver, 15).until(EC.url_to_be(RegPage.url_main_page))
 
     # переходим в профиль пользователя
-    driver.find_element(*RegPage.button_profile).click()
+    driver.find_element(*RegPage.BUTTON_PROFILE).click()
     WebDriverWait(driver, 10).until(EC.url_contains("profile")) 
-    block_my_ad = driver.find_element(*CreateAd.my_ad)
+    block_my_ad = driver.find_element(*CreateAd.MY_AD)
     driver.execute_script("arguments[0].scrollIntoView();", block_my_ad)
-    WebDriverWait(driver, 15).until(EC.presence_of_element_located((CreateAd.creating_ad_name)))
+    WebDriverWait(driver, 15).until(EC.presence_of_element_located((CreateAd.CREATING_AD_NAME)))
 
     # проверяем, что есть карточка созданного объявления с верным названием, городом и ценой
-    assert len(driver.find_elements(*CreateAd.my_cards)) == 1 and driver.find_element(*CreateAd.creating_ad_name).text == "Трудно быть богом" and driver.find_element(*CreateAd.creating_ad_city).text == "Екатеринбург" and driver.find_element(*CreateAd.creating_ad_price).text == "650 ₽"
+    assert len(driver.find_elements(*CreateAd.MY_CARDS)) == 1 and driver.find_element(*CreateAd.CREATING_AD_NAME).text == "Трудно быть богом" and driver.find_element(*CreateAd.CREATING_AD_CITY).text == "Екатеринбург" and driver.find_element(*CreateAd.CREATING_AD_PRICE).text == "650 ₽"
   
