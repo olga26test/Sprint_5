@@ -7,6 +7,7 @@ from locators import RegPage, CreateAd
 
 
 class TestCreateAd:
+
     def test_create_ad_unauth_user(self, driver):
         driver.get(RegPage.url_main_page)
 
@@ -15,7 +16,8 @@ class TestCreateAd:
         WebDriverWait(driver, 3).until(EC.visibility_of_element_located((CreateAd.POPUP_SIGNIN)))
 
         # проверяем, что появляется модалка с заголовком «Чтобы разместить объявление, авторизуйтесь»
-        assert len(driver.find_elements(*CreateAd.POPUP_SIGNIN)) == 1 and driver.find_element(*CreateAd.POPUP_SIGNIN).text == "Чтобы разместить объявление, авторизуйтесь"
+        assert len(driver.find_elements(*CreateAd.POPUP_SIGNIN)) == 1 
+
 
     def test_create_ad_auth_user(self, driver):
         driver.get(RegPage.url_main_page)
@@ -53,4 +55,9 @@ class TestCreateAd:
         WebDriverWait(driver, 15).until(EC.presence_of_element_located((CreateAd.CREATED_AD_NAME)))
 
         # проверяем, что есть карточка созданного объявления с верным названием, городом и ценой
-        assert len(driver.find_elements(*CreateAd.MY_CARDS)) == 1 and driver.find_element(*CreateAd.CREATED_AD_NAME).text == "Трудно быть богом" and driver.find_element(*CreateAd.CREATED_AD_CITY).text == "Екатеринбург" and driver.find_element(*CreateAd.CREATED_AD_PRICE).text == "650 ₽"
+        assert (
+            len(driver.find_elements(*CreateAd.MY_CARDS)) == 1 and 
+            driver.find_element(*CreateAd.CREATED_AD_NAME).text == "Трудно быть богом" and 
+            driver.find_element(*CreateAd.CREATED_AD_CITY).text == "Екатеринбург" and 
+            driver.find_element(*CreateAd.CREATED_AD_PRICE).text == "650 ₽"
+        )

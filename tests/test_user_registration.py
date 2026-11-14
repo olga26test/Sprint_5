@@ -7,6 +7,7 @@ from locators import RegPage
 
 
 class TestUserRegistration:
+
     def test_registration(self, driver):
         driver.get(RegPage.url_main_page)
 
@@ -23,7 +24,10 @@ class TestUserRegistration:
         WebDriverWait(driver, 30).until(EC.visibility_of_element_located((RegPage.USER_NAME)))
 
         # проверяем, что есть имя User. и аватар    
-        assert (driver.find_element(*RegPage.USER_NAME).text == "User.") and (len(driver.find_elements(*RegPage.BUTTON_PROFILE)) == 1)
+        assert (
+            driver.find_element(*RegPage.USER_NAME).text == "User." and 
+            (len(driver.find_elements(*RegPage.BUTTON_PROFILE)) == 1)
+        )
 
 
     def test_registration_with_invalid_mask_email(self, driver):
@@ -47,7 +51,12 @@ class TestUserRegistration:
         field_repeat_password_border_color = driver.find_element(*RegPage.FIELD_REPEAT_PASSWORD).value_of_css_property("border-color")
 
         # проверяем наличие текста Ошибка под полем Email, и что все 3 поля выделены красным цветом
-        assert len(driver.find_elements(*RegPage.ERROR_EMAIL)) == 1 and field_email_border_color == "rgb(255, 105, 114)" and field_password_border_color == "rgb(255, 105, 114)" and field_repeat_password_border_color == "rgb(255, 105, 114)"
+        assert (
+            len(driver.find_elements(*RegPage.ERROR_EMAIL)) == 1 and 
+            field_email_border_color == "rgb(255, 105, 114)" and 
+            field_password_border_color == "rgb(255, 105, 114)" and 
+            field_repeat_password_border_color == "rgb(255, 105, 114)"
+        )
 
 
     def test_registration_existing_user(self, driver):
@@ -88,5 +97,10 @@ class TestUserRegistration:
         field_repeat_password_border_color = driver.find_element(*RegPage.FIELD_REPEAT_PASSWORD).value_of_css_property("border-color")
     
         # проверяем наличие текста Ошибка под полем Email, и что все 3 поля выделены красным цветом
-        assert len(driver.find_elements(*RegPage.ERROR_EMAIL)) == 1 and field_email_border_color == "rgb(255, 105, 114)" and field_password_border_color == "rgb(255, 105, 114)" and field_repeat_password_border_color == "rgb(255, 105, 114)"
+        assert (
+            len(driver.find_elements(*RegPage.ERROR_EMAIL)) == 1 and 
+            field_email_border_color == "rgb(255, 105, 114)" and 
+            field_password_border_color == "rgb(255, 105, 114)" and 
+            field_repeat_password_border_color == "rgb(255, 105, 114)"
+        )
     
