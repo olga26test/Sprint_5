@@ -33,12 +33,12 @@ class TestLoginPage:
         driver.find_element(*RegPage.INPUT_EMAIL).send_keys(email_random)
         driver.find_element(*RegPage.INPUT_PASSWORD).send_keys("qwertY123$")
         driver.find_element(*RegPage.BUTTON_ENTER).click()
-        WebDriverWait(driver, 30).until(EC.visibility_of_element_located((RegPage.USER_NAME)))
+        user_name = WebDriverWait(driver, 30).until(EC.visibility_of_element_located((RegPage.USER_NAME)))
 
         # проверяем, что есть имя User. и аватар    
         assert (
-            driver.find_element(*RegPage.USER_NAME).text == "User." and 
-            (len(driver.find_elements(*RegPage.BUTTON_PROFILE)) == 1)
+            user_name.text == "User." and 
+            len(driver.find_elements(*RegPage.BUTTON_PROFILE)) == 1
         )
 
     def test_logout(self, driver):
@@ -58,12 +58,12 @@ class TestLoginPage:
 
         # выходим из аккаунта
         driver.find_element(*RegPage.BUTTON_LOGOUT).click() 
-        WebDriverWait(driver, 30).until(EC.visibility_of_element_located((RegPage.BUTTON_ENTER_AND_REG)))
+        button_enter_and_reg = WebDriverWait(driver, 30).until(EC.visibility_of_element_located((RegPage.BUTTON_ENTER_AND_REG)))
 
         # проверяем, что имя User. и аватар отсутствуют и есть кнопка «Вход и регистрация»
         assert (
             len(driver.find_elements(*RegPage.USER_NAME)) == 0 and 
             len(driver.find_elements(*RegPage.BUTTON_PROFILE)) == 0 and 
-            len(driver.find_elements(*RegPage.BUTTON_ENTER_AND_REG)) == 1
+            button_enter_and_reg.is_displayed()
         ) 
     

@@ -21,12 +21,12 @@ class TestUserRegistration:
         driver.find_element(*RegPage.INPUT_PASSWORD).send_keys("qwertY123$")
         driver.find_element(*RegPage.INPUT_REPEAT_PASSWORD).send_keys("qwertY123$")
         driver.find_element(*RegPage.BUTTON_CREATE_ACCOUNT).click()
-        WebDriverWait(driver, 30).until(EC.visibility_of_element_located((RegPage.USER_NAME)))
+        user_name = WebDriverWait(driver, 30).until(EC.visibility_of_element_located((RegPage.USER_NAME)))
 
         # проверяем, что есть имя User. и аватар    
         assert (
-            driver.find_element(*RegPage.USER_NAME).text == "User." and 
-            (len(driver.find_elements(*RegPage.BUTTON_PROFILE)) == 1)
+            user_name.text == "User." and 
+            len(driver.find_elements(*RegPage.BUTTON_PROFILE)) == 1
         )
 
 
@@ -43,7 +43,7 @@ class TestUserRegistration:
         driver.find_element(*RegPage.BUTTON_CREATE_ACCOUNT).click()
 
         # ожидаем, чтобы успел появиться элемент с текстом Ошибка
-        WebDriverWait(driver, 3).until(EC.visibility_of_element_located((RegPage.ERROR_EMAIL)))
+        error_email = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((RegPage.ERROR_EMAIL)))
 
         # находим border каждого поля
         field_email_border_color = driver.find_element(*RegPage.FIELD_EMAIL).value_of_css_property("border-color")
@@ -52,7 +52,7 @@ class TestUserRegistration:
 
         # проверяем наличие текста Ошибка под полем Email, и что все 3 поля выделены красным цветом
         assert (
-            len(driver.find_elements(*RegPage.ERROR_EMAIL)) == 1 and 
+            error_email.is_displayed() and 
             field_email_border_color == "rgb(255, 105, 114)" and 
             field_password_border_color == "rgb(255, 105, 114)" and 
             field_repeat_password_border_color == "rgb(255, 105, 114)"
@@ -89,7 +89,7 @@ class TestUserRegistration:
         driver.find_element(*RegPage.BUTTON_CREATE_ACCOUNT).click()
 
         # ожидаем, чтобы успел появиться элемент с текстом Ошибка
-        WebDriverWait(driver, 3).until(EC.visibility_of_element_located((RegPage.ERROR_EMAIL)))
+        error_email = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((RegPage.ERROR_EMAIL)))
 
         # находим border каждого поля
         field_email_border_color = driver.find_element(*RegPage.FIELD_EMAIL).value_of_css_property("border-color")
@@ -98,7 +98,7 @@ class TestUserRegistration:
     
         # проверяем наличие текста Ошибка под полем Email, и что все 3 поля выделены красным цветом
         assert (
-            len(driver.find_elements(*RegPage.ERROR_EMAIL)) == 1 and 
+            error_email.is_displayed() and  
             field_email_border_color == "rgb(255, 105, 114)" and 
             field_password_border_color == "rgb(255, 105, 114)" and 
             field_repeat_password_border_color == "rgb(255, 105, 114)"
